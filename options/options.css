@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0d1117;
+  --bg-2: #161b22;
+  --border: rgba(255, 255, 255, 0.08);
+  --cyan: #06b6d4;
+  --cyan-hover: #0891b2;
+  --text: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #484f58;
+  --radius: 10px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 32px 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.lead {
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.lead a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+.lead a:hover {
+  text-decoration: underline;
+}
+
+.lead code {
+  font-size: 12px;
+  background: rgba(6, 182, 212, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--cyan);
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.15);
+}
+
+.hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.hint.hidden {
+  display: none;
+}
+
+.actions {
+  margin-top: 18px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-hover) 100%);
+  color: #041014;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+.status {
+  margin-top: 16px;
+  font-size: 12px;
+  min-height: 1.2em;
+  color: var(--text-secondary);
+}
+
+.status.ok {
+  color: #3fb950;
+}
+
+.status.err {
+  color: #f85149;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TermLens</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- ── HEADER ─────────────────────────────────────── -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 12H14M7 8H11M7 16H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="17.5" cy="8.5" r="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M20.5 11.5L23 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">TermLens</span>
+    </div>
+    <div id="risk-badge" class="risk-badge hidden"></div>
+  </header>
+
+  <!-- ── IDLE STATE ──────────────────────────────────── -->
+  <section id="view-idle" class="view active">
+    <div class="idle-content">
+      <div class="idle-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M7 12H14M7 8H11M7 16H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="17.5" cy="8.5" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20.5 11.5L23 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="idle-title">Ready to Analyze</h2>
+      <p class="idle-desc">Navigate to a Terms &amp; Conditions, Privacy Policy, or Cookie consent page, then click below.</p>
+      <button id="btn-analyze" class="btn-primary">
+        <span class="btn-icon">⚡</span>
+        Analyze This Page
+      </button>
+    </div>
+  </section>
+
+  <!-- ── LOADING STATE ───────────────────────────────── -->
+  <section id="view-loading" class="view">
+    <div class="loading-content">
+      <div class="spinner-ring">
+        <div class="spinner-segment"></div>
+      </div>
+      <p class="loading-title">Analyzing document…</p>
+      <p class="loading-sub" id="loading-sub-text">Extracting legal text</p>
+    </div>
+  </section>
+
+  <!-- ── NOT FOUND STATE ────────────────────────────── -->
+  <section id="view-not-found" class="view">
+    <div class="notfound-content">
+      <div class="notfound-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="notfound-title">No Legal Content Found</h2>
+      <p class="notfound-desc">This page doesn't appear to contain Terms &amp; Conditions, a Privacy Policy, or Cookie consent text.</p>
+      <button id="btn-retry" class="btn-secondary">Try Anyway</button>
+    </div>
+  </section>
+
+  <!-- ── ERROR STATE ────────────────────────────────── -->
+  <section id="view-error" class="view">
+    <div class="error-content">
+      <div class="error-icon">⚠️</div>
+      <h2 class="error-title">Something went wrong</h2>
+      <p class="error-msg" id="error-message">An unexpected error occurred.</p>
+      <button id="btn-error-retry" class="btn-secondary">Try Again</button>
+    </div>
+  </section>
+
+  <!-- ── RESULTS STATE ──────────────────────────────── -->
+  <section id="view-results" class="view">
+    <p class="source-hint hidden" id="source-hint">Click a summary bullet or risk card to jump to the quoted passage on the page.</p>
+
+    <!-- Tab bar -->
+    <nav class="tab-bar" role="tablist">
+      <button class="tab active" data-tab="summary" role="tab" id="tab-summary" aria-selected="true">Summary</button>
+      <button class="tab" data-tab="risks" role="tab" id="tab-risks" aria-selected="false">
+        Risks
+        <span class="tab-badge" id="risks-count" style="display:none"></span>
+      </button>
+      <button class="tab" data-tab="cookies" role="tab" id="tab-cookies" aria-selected="false">Cookies</button>
+    </nav>
+
+    <!-- ── Tab: Summary ── -->
+    <div class="tab-panel active" id="panel-summary" role="tabpanel">
+      <p class="content-type-label" id="content-type-label"></p>
+      <ul class="summary-list" id="summary-list"></ul>
+      <button id="btn-reanalyze" class="btn-ghost">↻ Re-analyze</button>
+    </div>
+
+    <!-- ── Tab: Risks ── -->
+    <div class="tab-panel" id="panel-risks" role="tabpanel">
+      <div class="risks-list" id="risks-list"></div>
+      <div class="no-risks hidden" id="no-risks">
+        <span class="no-risks-icon">✅</span>
+        <p>No significant risks detected.</p>
+      </div>
+    </div>
+
+    <!-- ── Tab: Cookies ── -->
+    <div class="tab-panel" id="panel-cookies" role="tabpanel">
+      <div id="cookies-content"></div>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER DISCLAIMER ──────────────────────────── -->
+  <div id="source-toast" class="source-toast" aria-live="polite"></div>
+
+  <footer class="footer">
+    <span class="disclaimer">⚖️ AI summary — not legal advice</span>
+    <button type="button" id="btn-open-options" class="footer-link">Groq API key</button>
+    <span class="powered-by">Made with 💗</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TermLens – Groq API</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Groq API key</h1>
+    <p class="lead">
+      TermLens uses the free tier on <strong>Groq</strong> (not xAI Grok). Create a key at
+      <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">console.groq.com/keys</a>.
+      Keys usually start with <code>gsk_</code>.
+    </p>
+    <label class="label" for="api-key">API key</label>
+    <input id="api-key" type="password" class="input" autocomplete="off" spellcheck="false" placeholder="gsk_…" />
+    <p id="key-hint" class="hint hidden">A key is already saved. Enter a new one to replace it, or clear the field and save to remove.</p>
+    <div class="actions">
+      <button type="button" id="btn-save" class="btn-primary">Save</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
