@@ -21,7 +21,7 @@ TermLens is an AI-powered Chrome Extension that scans Terms & Conditions, Privac
 
 > Open the extension on any Terms & Conditions or Privacy Policy page and click **Analyze**.
 
-![TermLens Demo](E:\TermLens\TERMLENS.gif)
+![TermLens Demo](docs/demo.gif)
 
 ---
 
